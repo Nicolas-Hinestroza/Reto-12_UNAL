@@ -129,11 +129,81 @@ El método isupper() devuelve True si todos los caracteres están en mayúsculas
 
 - **Cantidad de vocales**
 
+![image](https://github.com/Nicolas-Hinestroza/Reto-12_UNAL/assets/124611099/bd1f34a5-c9e7-41ee-be9f-62b17faed29e)
+
+    with open("Texto.txt", 'r') as archivo: # Definimos el archivo a abrir
+        contenido = archivo.read() # se lee el texto 
+
+    def contar_vocales(texto): # Definimos la funcion con la variable texto
+        vocales = 'a','e','i','o','u','A','E','I','O','U'  # Escribimos las vocales en minúsculas y mayusculas
+        contador = 0 # se inicia el recuento
+        for letras in texto:  # se buscan los digitos 
+            if letras in vocales: # Si letras esta en vocales entonces haga
+                contador += 1 # Sumarle 1 al contador
+        return contador # Nos devuelve el resultado
+
+    cantidad = contar_vocales(contenido)  # definimos la variable cantidad como el resultado de la funcion
+    print("La cantidad de vocales en el texto es: {}".format(cantidad)) # se imprime el resultado
+
 - **Cantidad de consonantes**
+
+![image](https://github.com/Nicolas-Hinestroza/Reto-12_UNAL/assets/124611099/ee23cea4-4910-4a45-90ac-0f7d63a37f5d)
+
+    with open("Texto.txt", 'r') as archivo: # Definimos el archivo a abrir
+        contenido = archivo.read() # se lee el texto 
+
+    def contar_Consonantes(texto):# Definimos la funcion con la variable texto
+        vocales = 'a','e','i','o','u','A','E','I','O','U'  # Escribimos las vocales en minúsculas y mayusculas
+        contador = 0 # se inicia el recuento
+        for letras in texto:  # se buscan los digitos 
+            if letras.isalpha() and letras not in vocales: # Si letyras es un caracter alfabetico y no pertenece a vocales entonces haga
+                contador += 1 # Sumarle 1 al contador
+        return contador # Nos devuelve el resultado
+
+    cantidad = contar_Consonantes(contenido)  # definimos la variable cantidad como el resultado de la funcion
+    print("La cantidad de vocales en el texto es: {}".format(cantidad)) # se imprime el resultado
 
 - **Listado de las 50 palabras que más se repiten**
 
+![image](https://github.com/Nicolas-Hinestroza/Reto-12_UNAL/assets/124611099/7615b7df-d9d8-4d9f-8171-cb9e6242079a)
+
+    from collections import Counter # utilizamos collections y Counter para realizar un seguimiento de los elementos y su recuento.
+    import re # Usamos este modulo para encontrar operaciones de coincidencia
+
+    def obtener_palabras_mas_comunes(Texto): # Definimos la funcion con la variable texto
+        with open(Texto, 'r') as Archivo: # Definimos el archivo a abrir
+            contenido = Archivo.read() # se lee el texto  
+            palabras = re.findall(r'\w+', contenido.lower()) # Definimos palabras utilizando el modulo el cual nos Devuelve todas las coincidencias de las palabras en minuscula 
+            frecuencia = Counter(palabras) # Para la frecuencia usamos el modulo para tener un contador de las palabras
+            palabras_comunes = frecuencia.most_common(50) # Definimos la variable con una frecuencia de las 50 palabras mas comunes 
+        return palabras_comunes # Nos devuelve las palabras comunes
+    
+    palabras_mas_comunes = obtener_palabras_mas_comunes("Texto.txt") # LLamamos la funcion con el texto deseado
+    Contador = 0 # se inicia el recuento
+    print("Listado de las 50 palabras más repetidas:") # Imprimimos el enunciado
+    for palabra, frecuencia in palabras_mas_comunes: # Para las palabras y su frecuencia en las palabras comunes imprima cada palabra y cada frecuencia
+        Contador += 1 # Sumarle 1 al contador
+        print("#{}. La palabra {}: aparecio {} veces" .format(Contador, palabra, frecuencia)) # se imprime el resultado
+
 - **Listado de destinatarios con cantidad de mensajes recibidos**
+
+![image](https://github.com/Nicolas-Hinestroza/Reto-12_UNAL/assets/124611099/572b67d0-eab0-4654-8789-31c799df17f6)
+
+    def destinatarios_mensanjes(archivo): # Definimos la funcion con la variable texto
+       cuenta_destinatarios = {}  # Diccionario para almacenar los destinatarios y la cantidad de mensajes recibidos
+   
+       with open(archivo, 'r') as archivo_texto: # Definimos el archivo a abrir
+           for line in archivo_texto:  # con el for vamos a recorrer cada linea del texto
+               linea = line.strip()  # Definimos linea como la line con los espacios al principio y fin eliminados
+               if linea.startswith("To:"): # la linea inicia con To: entonces haga
+                   destinatario = linea[4:].strip()  # Definimos destinatario como la linea con el To: eliminado
+                   cuenta_destinatarios[destinatario] = cuenta_destinatarios.get(destinatario, 0) + 1  # Usamos el diccionario para almacenar los destinatarios y con get nos devuelve los destinatarios
+   
+       print("Listado de destinatarios con cantidad de mensajes recibidos:") # Imprimimos el enunciado 
+       for destinatario, cuenta in cuenta_destinatarios.items(): # Para los destinatarios y su cuenta en la cuenta_destinatarios con el objetivo 
+           print(f"{destinatario}: {cuenta} mensajes") # se imprime el resultado
+
+    destinatarios_mensanjes("Texto.txt") # LLamamos la funcion con el texto deseado
 
 - **Cantidad de mensajes enviados por cada día**
 
